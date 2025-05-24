@@ -1,0 +1,282 @@
+[gd_scene load_steps=24 format=3 uid="uid://bpgfodcrv7jdm"]
+
+[ext_resource type="PackedScene" uid="uid://cxlee2ddwelw2" path="res://scenes/visuals/Space.tscn" id="1_ehmcd"]
+[ext_resource type="PackedScene" uid="uid://dolj86pj72g4s" path="res://scenes/main/Ship.tscn" id="2_a06om"]
+[ext_resource type="Resource" uid="uid://c6j7woe8f6tv6" path="res://inventory/PlayerInv.tres" id="3_okvv6"]
+[ext_resource type="PackedScene" uid="uid://d1c2hlwqv73da" path="res://scenes/visuals/HUDBackground.tscn" id="4_sbn4g"]
+[ext_resource type="PackedScene" uid="uid://doiw7t52go4hu" path="res://scenes/visuals/Health.tscn" id="5_6r1im"]
+[ext_resource type="Texture2D" uid="uid://buyjocneknwmr" path="res://graphics/ui/Panel/AmmoPanel.png" id="6_t6btq"]
+[ext_resource type="Script" uid="uid://d2is7hfsx2ag6" path="res://scripts/weapons/ammo.gd" id="7_t5jvo"]
+[ext_resource type="FontFile" uid="uid://netqsnvyc0jb" path="res://fonts/Pixeled.ttf" id="8_g46rq"]
+[ext_resource type="PackedScene" uid="uid://bpcgbtysaeyij" path="res://scenes/visuals/Fuel.tscn" id="9_14lo0"]
+[ext_resource type="Script" uid="uid://ds12e4k7r073m" path="res://scripts/visuals/projectile_panel.gd" id="10_h8h2g"]
+[ext_resource type="Texture2D" uid="uid://bc1fjseenejli" path="res://graphics/ship/BlueLaser1.png" id="11_1gnbh"]
+[ext_resource type="PackedScene" uid="uid://c7w7w2df1thqn" path="res://scenes/visuals/inv_ui.tscn" id="12_bkcmj"]
+[ext_resource type="Script" uid="uid://bvscbs88urhdh" path="res://scripts/visuals/shadow.gd" id="13_2q7vx"]
+[ext_resource type="PackedScene" uid="uid://b04s5psd6gyn2" path="res://inventory/Items/collectables/star_dust.tscn" id="14_yemqq"]
+[ext_resource type="PackedScene" uid="uid://c2oq2sv1cayme" path="res://inventory/Items/collectables/core_collectable.tscn" id="15_k38aq"]
+
+[sub_resource type="Shader" id="Shader_k5f4k"]
+code = "shader_type canvas_item;
+
+uniform float radius : hint_range(0.0, 3.0) = 2;
+uniform float softness : hint_range(0.0, 1.0) = 0.8;
+uniform float intensity : hint_range(0.0, 1.0) = 0.4;
+uniform vec4 vignette_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+void fragment() {
+    vec2 uv = UV * 2.0 - 1.0;
+    float dist = length(uv);
+    float vignette = 1.0 - smoothstep(radius, radius - softness, dist);
+    COLOR = vignette_color * vignette * intensity;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6phgx"]
+shader = SubResource("Shader_k5f4k")
+shader_parameter/radius = 1.537
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 0.4
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esopp"]
+texture = ExtResource("6_t6btq")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_b10nm"]
+font = ExtResource("8_g46rq")
+font_size = 10
+outline_size = 4
+outline_color = Color(0.133333, 0.141176, 0.286275, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ienac"]
+texture = ExtResource("6_t6btq")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Animation" id="Animation_133si"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_or7tv"]
+resource_name = "play"
+length = 0.400005
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_esopp"]
+_data = {
+&"RESET": SubResource("Animation_133si"),
+&"play": SubResource("Animation_or7tv")
+}
+
+[node name="Level" type="Node2D"]
+
+[node name="Space" parent="." instance=ExtResource("1_ehmcd")]
+
+[node name="Ship" parent="." instance=ExtResource("2_a06om")]
+z_index = 1
+position = Vector2(-1, 0)
+fuel_node_path = NodePath("../UI/HBoxContainer/HUD/Fuel/FuelBar")
+inv = ExtResource("3_okvv6")
+
+[node name="Camera2D" type="Camera2D" parent="Ship" groups=["camera"]]
+position_smoothing_enabled = true
+position_smoothing_speed = 1.0
+
+[node name="VigentteLayer" type="CanvasLayer" parent="."]
+
+[node name="Vignette" type="ColorRect" parent="VigentteLayer"]
+material = SubResource("ShaderMaterial_6phgx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -202.0
+offset_right = 225.0
+grow_vertical = 0
+
+[node name="HUD" parent="UI/HBoxContainer" groups=["HUD"] instance=ExtResource("4_sbn4g")]
+layout_mode = 2
+
+[node name="Background" parent="UI/HBoxContainer/HUD" index="0"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 74.0
+offset_bottom = 71.0
+
+[node name="Health" parent="UI/HBoxContainer/HUD" instance=ExtResource("5_6r1im")]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.162
+anchor_right = 0.0
+anchor_bottom = 0.162
+offset_left = 74.0
+offset_top = -13.104
+offset_right = 74.0
+offset_bottom = -13.104
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="TextureProgressBar" parent="UI/HBoxContainer/HUD/Health" index="0"]
+offset_left = 8.0
+offset_top = 15.38
+offset_right = 120.0
+offset_bottom = 37.38
+
+[node name="Ammo" type="Panel" parent="UI/HBoxContainer/HUD"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 28.0
+offset_top = -58.0
+offset_right = 117.0
+offset_bottom = -30.0
+scale = Vector2(2, 2)
+theme_override_styles/panel = SubResource("StyleBoxTexture_esopp")
+script = ExtResource("7_t5jvo")
+ship_node_path = NodePath("../../../../Ship")
+
+[node name="AmmoText" type="Label" parent="UI/HBoxContainer/HUD/Ammo"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 2.5
+offset_right = 55.0
+offset_bottom = 30.5
+scale = Vector2(0.7, 0.7)
+text = "Ammo:"
+label_settings = SubResource("LabelSettings_b10nm")
+
+[node name="Fuel" parent="UI/HBoxContainer/HUD" instance=ExtResource("9_14lo0")]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.484
+anchor_right = 0.0
+anchor_bottom = 0.484
+offset_left = 18.0
+offset_top = -74.36
+offset_right = 54.0
+offset_bottom = 25.64
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(1.5, 1.5)
+
+[node name="FuelBar" parent="UI/HBoxContainer/HUD/Fuel" index="0"]
+offset_left = -1.33333
+offset_top = 5.06136
+offset_right = 34.6667
+offset_bottom = 105.061
+
+[node name="ProjectilePanel" type="Panel" parent="UI/HBoxContainer/HUD"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.542
+anchor_bottom = 0.542
+offset_left = 82.0
+offset_top = -47.484
+offset_right = 138.0
+offset_bottom = 8.516
+scale = Vector2(2, 2)
+theme_override_styles/panel = SubResource("StyleBoxTexture_ienac")
+script = ExtResource("10_h8h2g")
+ship_node_path = NodePath("../../../../Ship")
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/HBoxContainer/HUD/ProjectilePanel"]
+position = Vector2(28, 28)
+scale = Vector2(2, 2)
+texture = ExtResource("11_1gnbh")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/HBoxContainer/HUD/ProjectilePanel"]
+libraries = {
+&"": SubResource("AnimationLibrary_esopp")
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -101.0
+offset_right = 245.0
+offset_bottom = 89.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="InvUI" parent="UI/HBoxContainer2" instance=ExtResource("12_bkcmj")]
+layout_mode = 2
+
+[node name="Shadow" type="ColorRect" parent="UI"]
+visible = false
+z_index = -2
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.592157)
+script = ExtResource("13_2q7vx")
+
+[node name="star_dust_collectable" parent="." instance=ExtResource("14_yemqq")]
+position = Vector2(539, 294)
+
+[node name="star_dust_collectable2" parent="." instance=ExtResource("14_yemqq")]
+position = Vector2(268, 174)
+
+[node name="star_dust_collectable3" parent="." instance=ExtResource("14_yemqq")]
+position = Vector2(499, 162)
+
+[node name="core_collectable3" parent="." instance=ExtResource("15_k38aq")]
+position = Vector2(358, 335)
+
+[node name="core_collectable" parent="." instance=ExtResource("15_k38aq")]
+position = Vector2(668, 179)
+
+[node name="core_collectable2" parent="." instance=ExtResource("15_k38aq")]
+position = Vector2(796, 329)
+
+[editable path="Space"]
+[editable path="UI/HBoxContainer/HUD"]
+[editable path="UI/HBoxContainer/HUD/Health"]
+[editable path="UI/HBoxContainer/HUD/Fuel"]

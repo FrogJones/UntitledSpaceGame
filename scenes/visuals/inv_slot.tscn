@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhs6ss2xcgmbn"]
+
+[ext_resource type="Texture2D" uid="uid://yjlgym3cc85y" path="res://graphics/ui/Panel/InvSlot.png" id="1_qqqon"]
+[ext_resource type="Script" uid="uid://nn4pca7hhy64" path="res://scripts/inventory/inv_ui_slot.gd" id="1_usncs"]
+[ext_resource type="FontFile" uid="uid://netqsnvyc0jb" path="res://fonts/Pixeled.ttf" id="3_526q6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dv2y1"]
+font = ExtResource("3_526q6")
+font_size = 10
+outline_size = 4
+outline_color = Color(0.145098, 0.145098, 0.160784, 1)
+
+[node name="InvSlot" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(48, 48)
+offset_right = 48.0
+offset_bottom = 48.0
+script = ExtResource("1_usncs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_qqqon")
+centered = false
+
+[node name="ItemDisplay" type="Sprite2D" parent="."]
+texture_filter = 1
+offset = Vector2(24, 24)
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 28.0
+offset_top = 22.0
+offset_right = 48.0
+offset_bottom = 50.0
+scale = Vector2(0.665, 0.665)
+text = "99"
+label_settings = SubResource("LabelSettings_dv2y1")
+horizontal_alignment = 2

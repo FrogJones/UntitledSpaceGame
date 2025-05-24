@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpcgbtysaeyij"]
+
+[ext_resource type="Texture2D" uid="uid://bjarit64o3v0w" path="res://graphics/ui/Fuel/fuel_under.png" id="1_3qs7n"]
+[ext_resource type="Texture2D" uid="uid://b5u0knnhyvuyk" path="res://graphics/ui/Fuel/fuel_over.png" id="2_km5yl"]
+[ext_resource type="Texture2D" uid="uid://cb3bigk3puu5r" path="res://graphics/ui/Fuel/fuel.png" id="3_oagjo"]
+[ext_resource type="FontFile" uid="uid://netqsnvyc0jb" path="res://fonts/Pixeled.ttf" id="4_8nx5i"]
+[ext_resource type="Script" uid="uid://c314ph7j41pt3" path="res://scripts/visuals/fuel_bar.gd" id="4_oagjo"]
+[ext_resource type="Texture2D" uid="uid://40qt0dd4y7xe" path="res://graphics/ui/Fuel/fuel_warning.png" id="5_8nx5i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3qs7n"]
+font = ExtResource("4_8nx5i")
+font_size = 5
+outline_size = 4
+outline_color = Color(0.133333, 0.141176, 0.286275, 1)
+
+[node name="Fuel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FuelBar" type="TextureProgressBar" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 9.0
+offset_bottom = 27.0
+value = 38.0
+fill_mode = 3
+texture_under = ExtResource("1_3qs7n")
+texture_over = ExtResource("2_km5yl")
+texture_progress = ExtResource("3_oagjo")
+texture_progress_offset = Vector2(6, 13)
+tint_progress = Color(0.641926, 1, 0.866615, 1)
+script = ExtResource("4_oagjo")
+
+[node name="Warning" type="TextureRect" parent="FuelBar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 8.0
+offset_top = 14.0
+offset_right = 48.0
+offset_bottom = 54.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_8nx5i")
+
+[node name="FuelLabel" type="Label" parent="FuelBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 59.0
+offset_right = 28.0
+offset_bottom = 73.0
+scale = Vector2(1.051, 1.051)
+text = "Fuel"
+label_settings = SubResource("LabelSettings_3qs7n")
+uppercase = true

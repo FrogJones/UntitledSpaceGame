@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1c2hlwqv73da"]
+
+[ext_resource type="Texture2D" uid="uid://bwfncv3l48c75" path="res://graphics/UI/Panel/Panel.png" id="1_1me5u"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.016
+anchor_bottom = 0.029
+offset_right = 130.0
+offset_bottom = 64.0
+scale = Vector2(3, 3)
+texture = ExtResource("1_1me5u")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9

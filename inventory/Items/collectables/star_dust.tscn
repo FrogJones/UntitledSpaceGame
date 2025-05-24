@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://b04s5psd6gyn2"]
+
+[ext_resource type="Script" uid="uid://blbjn6labsn27" path="res://scripts/inventory/collectable.gd" id="1_un03c"]
+[ext_resource type="Texture2D" uid="uid://bh2rqerow5s4d" path="res://inventory/Items/Sprites/star_dust.png" id="1_uykc1"]
+[ext_resource type="Resource" uid="uid://bjwvin1aeb15v" path="res://inventory/Items/tres/star_dust.tres" id="2_o2kfa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_un03c"]
+radius = 109.554
+
+[node name="star_dust_collectable" type="Area2D"]
+script = ExtResource("1_un03c")
+item = ExtResource("2_o2kfa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_uykc1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_un03c")

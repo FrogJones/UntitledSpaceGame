@@ -1,0 +1,278 @@
+[gd_scene load_steps=12 format=3 uid="uid://dolj86pj72g4s"]
+
+[ext_resource type="Script" uid="uid://dmydpg8jjo373" path="res://scripts/ship/ship.gd" id="1_jfy60"]
+[ext_resource type="PackedScene" uid="uid://lmw48spumgje" path="res://scenes/weapons/Laser.tscn" id="2_cmh36"]
+[ext_resource type="Texture2D" uid="uid://bmqa0fe2kjxvp" path="res://graphics/ship/Ship-Sheet-export.png" id="3_cmh36"]
+[ext_resource type="Texture2D" uid="uid://dhy23vjad3qn4" path="res://graphics/other/light.png" id="4_7qett"]
+[ext_resource type="AudioStream" uid="uid://ds3to11as3hwe" path="res://sounds/engine.wav" id="6_by1o1"]
+
+[sub_resource type="Resource" id="Resource_sjai3"]
+
+[sub_resource type="Animation" id="Animation_7qett"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShipSprites/MainEngineFire:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShipSprites/SecondaryEngineFire2:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipSprites/SecondaryEngineFire1:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_sjai3"]
+resource_name = "fly"
+length = 0.100005
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShipSprites/MainEngineFire:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0515722),
+"transitions": PackedFloat32Array(1, 1.41421),
+"update": 0,
+"values": [2.5, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShipSprites/SecondaryEngineFire2:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0515722),
+"transitions": PackedFloat32Array(1, 1.41421),
+"update": 0,
+"values": [2.5, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipSprites/SecondaryEngineFire1:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0515722),
+"transitions": PackedFloat32Array(1, 1.41421),
+"update": 0,
+"values": [2.5, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_cmh36"]
+resource_name = "fly_start"
+length = 0.300005
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShipSprites/MainEngineFire:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.300005),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShipSprites/SecondaryEngineFire1:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.300005),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipSprites/SecondaryEngineFire2:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.300005),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.5]
+}
+
+[sub_resource type="Animation" id="Animation_by1o1"]
+resource_name = "fly_stop"
+length = 0.100005
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShipSprites/MainEngineFire:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.100005),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShipSprites/SecondaryEngineFire1:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.100005),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipSprites/SecondaryEngineFire2:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.100005),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.5, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bndfx"]
+_data = {
+&"RESET": SubResource("Animation_7qett"),
+&"fly": SubResource("Animation_sjai3"),
+&"fly_start": SubResource("Animation_cmh36"),
+&"fly_stop": SubResource("Animation_by1o1")
+}
+
+[node name="Ship" type="CharacterBody2D" groups=["Ship"]]
+script = ExtResource("1_jfy60")
+laser = ExtResource("2_cmh36")
+inv = SubResource("Resource_sjai3")
+
+[node name="ShipSprites" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-28, 0)
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("3_cmh36")
+hframes = 9
+
+[node name="MainEngineFire" type="PointLight2D" parent="ShipSprites"]
+position = Vector2(2.53399e-05, 7)
+scale = Vector2(1, 1.90485)
+color = Color(0.494118, 0.894118, 0.976471, 1)
+texture = ExtResource("4_7qett")
+texture_scale = 0.4
+
+[node name="SecondaryEngineFire1" type="PointLight2D" parent="ShipSprites"]
+position = Vector2(7.06307, 9.32812)
+scale = Vector2(0.596154, 1.33355)
+color = Color(0.494118, 0.894118, 0.976471, 1)
+texture = ExtResource("4_7qett")
+texture_scale = 0.4
+
+[node name="SecondaryEngineFire2" type="PointLight2D" parent="ShipSprites"]
+position = Vector2(-6.96845, 9.02873)
+scale = Vector2(0.645404, 1.42713)
+color = Color(0.494118, 0.894118, 0.976471, 1)
+texture = ExtResource("4_7qett")
+texture_scale = 0.4
+
+[node name="EngineAnim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bndfx")
+}
+
+[node name="EngineSound" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("6_by1o1")
+volume_db = -15.0
+pitch_scale = 0.85
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2(-32, 0)
+polygon = PackedVector2Array(6, -32, -2, -32, -2, -30, -8, -30, -8, -22, -6, -22, -6, -14, -4, -14, -4, -4, -4, 14, -6, 14, -6, 22, -8, 22, -8, 30, 0, 30, 0, 32, 6, 32, 6, 30, 8, 30, 8, 26, 10, 26, 10, 24, 12, 24, 12, 20, 14, 20, 14, 18, 20, 18, 20, 16, 24, 16, 24, 12, 20, 12, 20, 8, 26, 8, 26, 6, 28, 6, 28, 4, 34, 4, 34, 2, 36, 2, 36, -2, 34, -2, 34, -4, 28, -4, 28, -6, 26, -6, 26, -8, 20, -8, 20, -12, 24, -12, 24, -16, 20, -16, 20, -18, 14, -18, 14, -20, 12, -20, 12, -24, 10, -24, 10, -26, 8, -26, 8, -30, 6, -30)
