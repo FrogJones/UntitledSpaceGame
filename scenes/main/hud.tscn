@@ -1,0 +1,183 @@
+[gd_scene load_steps=16 format=3 uid="uid://de80gn4c6uasn"]
+
+[ext_resource type="Texture2D" uid="uid://buyjocneknwmr" path="res://graphics/ui/Panel/AmmoPanel.png" id="1_04ve5"]
+[ext_resource type="Script" uid="uid://ds12e4k7r073m" path="res://scripts/visuals/projectile_panel.gd" id="2_1r4wp"]
+[ext_resource type="LabelSettings" uid="uid://im84as11t823" path="res://fonts/LabelSettings.tres" id="3_ypjbc"]
+[ext_resource type="Texture2D" uid="uid://bc1fjseenejli" path="res://graphics/ship/BlueLaser1.png" id="4_teqml"]
+[ext_resource type="Script" uid="uid://d2is7hfsx2ag6" path="res://scripts/weapons/ammo.gd" id="5_phqc1"]
+[ext_resource type="PackedScene" uid="uid://bpcgbtysaeyij" path="res://scenes/visuals/Fuel.tscn" id="6_rr823"]
+[ext_resource type="Texture2D" uid="uid://di3grlg2n68nx" path="res://graphics/ui/Health/Health_under.png" id="7_2d10w"]
+[ext_resource type="Texture2D" uid="uid://cna26q4fecg8a" path="res://graphics/ui/Health/Health_over.png" id="8_yiehk"]
+[ext_resource type="Texture2D" uid="uid://cfakxfpqe4mhm" path="res://graphics/ui/Health/Health.png" id="9_6t0od"]
+[ext_resource type="Texture2D" uid="uid://cqghko8df4rib" path="res://graphics/ui/Health/Shield.png" id="10_rynvc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ienac"]
+texture = ExtResource("1_04ve5")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Animation" id="Animation_133si"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmmoType/Ammo:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_or7tv"]
+resource_name = "play"
+length = 0.400005
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmmoType/Ammo:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_esopp"]
+_data = {
+&"RESET": SubResource("Animation_133si"),
+&"play": SubResource("Animation_or7tv")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esopp"]
+texture = ExtResource("1_04ve5")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="HUD" type="Control" groups=["HUD"]]
+layout_mode = 3
+anchor_top = 0.755
+anchor_bottom = 1.0
+offset_top = -0.400085
+offset_right = 160.0
+offset_bottom = -132.0
+grow_vertical = 0
+scale = Vector2(2, 2)
+
+[node name="InfoPanel" type="Panel" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 45.0
+offset_top = 15.5
+offset_right = 157.0
+offset_bottom = 65.5
+theme_override_styles/panel = SubResource("StyleBoxTexture_ienac")
+script = ExtResource("2_1r4wp")
+ship_node_path = NodePath("../../../Ship")
+
+[node name="AmmoType" type="Label" parent="InfoPanel"]
+layout_mode = 0
+offset_left = 8.5
+offset_top = 3.0
+offset_right = 102.5
+offset_bottom = 31.0
+scale = Vector2(0.655, 0.655)
+text = "Ammo Type:"
+label_settings = ExtResource("3_ypjbc")
+
+[node name="AmmoAnim" type="AnimationPlayer" parent="InfoPanel/AmmoType"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_esopp")
+}
+
+[node name="Ammo" type="Sprite2D" parent="InfoPanel/AmmoType"]
+position = Vector2(122.137, 17.5573)
+scale = Vector2(1.29796, 1.28884)
+texture = ExtResource("4_teqml")
+hframes = 8
+
+[node name="Ammo" type="Panel" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(110, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -67.5
+offset_right = 157.0
+offset_bottom = -37.5
+theme_override_styles/panel = SubResource("StyleBoxTexture_esopp")
+script = ExtResource("5_phqc1")
+ship_node_path = NodePath("../../../Ship")
+
+[node name="AmmoText" type="Label" parent="Ammo"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 2.5
+offset_right = 58.0
+offset_bottom = 30.5
+scale = Vector2(0.7, 0.7)
+text = "Ammo:"
+label_settings = ExtResource("3_ypjbc")
+
+[node name="Fuel" parent="." instance=ExtResource("6_rr823")]
+z_index = 2
+custom_minimum_size = Vector2(36, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -35.0
+offset_right = 42.0
+offset_bottom = 65.0
+
+[node name="Health" type="TextureProgressBar" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.406
+anchor_bottom = 0.406
+offset_left = 45.0
+offset_top = -21.998
+offset_right = 157.0
+offset_bottom = 0.00200272
+value = 100.0
+texture_under = ExtResource("7_2d10w")
+texture_over = ExtResource("8_yiehk")
+texture_progress = ExtResource("9_6t0od")
+texture_progress_offset = Vector2(6, 6)
+
+[node name="Shield" type="TextureProgressBar" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.406
+anchor_bottom = 0.406
+offset_left = 45.0
+offset_top = 3.002
+offset_right = 157.0
+offset_bottom = 25.002
+value = 100.0
+texture_under = ExtResource("7_2d10w")
+texture_over = ExtResource("8_yiehk")
+texture_progress = ExtResource("10_rynvc")
+texture_progress_offset = Vector2(6, 6)
+
+[editable path="Fuel"]

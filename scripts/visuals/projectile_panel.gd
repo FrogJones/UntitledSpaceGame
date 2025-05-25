@@ -6,7 +6,7 @@ var ship
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$AnimationPlayer.play("play")
+	$AmmoType/AmmoAnim.play("play")
 	ship = get_node(ship_node_path)
 
 
@@ -20,9 +20,9 @@ func update_diplay() -> void:
 	
 	match level:
 		1:
-			$Sprite2D.texture = load("res://graphics/Ship/BlueLaser1.png")
+			$AmmoType/Ammo.texture = load("res://graphics/Ship/BlueLaser1.png")
 		2:
-			$Sprite2D.texture = load("res://graphics/Ship/BlueLaser2.png")
+			$AmmoType/Ammo.texture = load("res://graphics/Ship/BlueLaser2.png")
 		3:
-			$Sprite2D.texture = load("res://graphics/Ship/BlueLaser3.png")
+			$AmmoType/Ammo.texture = load("res://graphics/Ship/BlueLaser3.png")
 	

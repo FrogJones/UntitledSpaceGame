@@ -7,7 +7,8 @@ func _ready():
 
 func _on_interactable_area_body_entered(body: Node2D) -> void:
 	if body.has_method("pickup"):
+		$sound.play()
 		player = body
 		player.pickup(item)
-		await get_tree().create_timer(0.1)
+		await $sound.finished
 		self.queue_free()

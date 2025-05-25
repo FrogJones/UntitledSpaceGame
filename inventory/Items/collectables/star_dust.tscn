@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b04s5psd6gyn2"]
+[gd_scene load_steps=6 format=3 uid="uid://b04s5psd6gyn2"]
 
 [ext_resource type="Script" uid="uid://blbjn6labsn27" path="res://scripts/inventory/collectable.gd" id="1_un03c"]
 [ext_resource type="Texture2D" uid="uid://bh2rqerow5s4d" path="res://inventory/Items/Sprites/star_dust.png" id="1_uykc1"]
 [ext_resource type="Resource" uid="uid://bjwvin1aeb15v" path="res://inventory/Items/tres/star_dust.tres" id="2_o2kfa"]
+[ext_resource type="AudioStream" uid="uid://bbje6x41d7ka4" path="res://sounds/pickup.wav" id="4_wdnna"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_un03c"]
 radius = 109.554
@@ -17,3 +18,7 @@ texture = ExtResource("1_uykc1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_un03c")
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_wdnna")
+volume_db = -20.0

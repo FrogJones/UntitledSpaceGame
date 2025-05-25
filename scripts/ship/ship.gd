@@ -142,7 +142,7 @@ func regenerate_fuel(delta: float) -> void:
 		update_fuel_display()
 
 func update_fuel_display() -> void:
-	$"../UI/HBoxContainer/HUD/Fuel/FuelBar".value = fuel_amount
+	$"../UI/HUD/Fuel".value = fuel_amount
 
 # Weapon functions
 func increase_laser_level() -> void:
@@ -178,3 +178,4 @@ func shoot() -> void:
 
 func pickup(item):
 	inv.insert(item)
+	

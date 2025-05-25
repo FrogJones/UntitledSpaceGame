@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# Determine target alpha
-	target_a = max_alpha if $"../HBoxContainer2/InvUI".is_open else 0.0
+	target_a = max_alpha if $"../InventoryContainer/InvUI".is_open else 0.0
 
 	# Easing factor
 	var t := 1.0 - pow(1.0 - speed * delta, 2)
